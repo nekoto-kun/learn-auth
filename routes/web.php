@@ -20,3 +20,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/users', [\App\Http\Controllers\UserController::class, 'index'])->name('users')->middleware(['admin', 'auth']);
+
+Route::prefix('/admin')->middleware(['admin', 'auth'])->group(function () {
+    Route::get('/users', [\App\Http\Controllers\UserController::class, 'index'])->name('users');
+});
